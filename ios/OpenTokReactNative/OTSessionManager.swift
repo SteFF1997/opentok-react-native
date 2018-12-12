@@ -245,6 +245,19 @@ class OTSessionManager: RCTEventEmitter {
     @objc func enableLogs(_ logLevel: Bool) -> Void {
         self.logLevel = logLevel;
     }
+
+    @objc func takeSnapshot(_ publisherId: String) -> Void {
+        guard let publisher = OTRN.sharedState.publishers[publisherId] else {
+            return
+        }
+        DispatchQueue.main.async {
+            UIGraphicsBeginImageContextWithOptions((publisher.view?.bounds.size)!, false, 0.0)
+            publisher.view?.drawHierarchy(in: (publisher.view?.bounds)!, afterScreenUpdates: false)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext();
+            UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        }
+    }
     
     func resetPublisher(_ publisherId: String, publisher: OTPublisher) -> Void {
         publisher.view?.removeFromSuperview()

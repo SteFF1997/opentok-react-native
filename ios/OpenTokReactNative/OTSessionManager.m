@@ -68,4 +68,6 @@ RCT_EXTERN_METHOD(getSessionInfo:
                   (RCTResponseSenderBlock*)callback)
 RCT_EXTERN_METHOD(enableLogs:
                   (BOOL)logLevel)
+RCT_EXTERN_METHOD(takeSnapshot:(NSString*)publisherId)
+
 @end
